@@ -1,25 +1,118 @@
-/* Generelle Schriftart */
+/* Grundlegende Variablen für Hell-Modus */
+:root {
+    --primary-color: #4CAF50; /* Grüne Akzentfarbe */
+    --text-color: #333;
+    --bg-color: #f4f7f6; /* Heller Hintergrund */
+    --card-bg-color: #ffffff;
+    --sidebar-bg-color: #2c3e50; /* Dunkle Sidebar */
+    --sidebar-link-hover: #34495e;
+}
+
+/* Variablen für Dark-Modus (überschreiben im .dark-mode Body) */
+body.dark-mode {
+    --text-color: #ecf0f1;
+    --bg-color: #1c2833;
+    --card-bg-color: #273746;
+    --sidebar-bg-color: #1a242f;
+    --sidebar-link-hover: #213240;
+}
+
+/* ------------------ Layout & Reset ------------------ */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex; /* Flexbox für Sidebar/Content Layout */
 }
 
-/* Farben für die Zeilen basierend auf dem Typ */
-.row-Warn {
-    background-color: #fff3cd; /* Gelb (Bootstrap warning) */
-}
+/* ------------------ Sidebar Styling ------------------ */
 
-.row-Kick {
-    background-color: #cfe2ff; /* Hellblau */
-}
-
-.row-Temp-Ban {
-    background-color: #f8d7da; /* Hellrot (Bootstrap danger) */
-    font-weight: bold;
-}
-
-.row-Perm-Ban {
-    background-color: #dc3545; /* Rot */
+#sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg-color);
     color: white;
-    font-weight: bold;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+#sidebar nav ul {
+    list-style: none;
+    flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
+}
+
+#sidebar nav a {
+    display: block;
+    color: #ecf0f1;
+    padding: 12px 10px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s;
+}
+
+#sidebar nav a:hover,
+#sidebar nav a.active {
+    background-color: var(--sidebar-link-hover);
+    color: var(--primary-color);
+}
+
+#sidebar nav i {
+    margin-right: 10px;
+}
+
+/* ------------------ Main Content ------------------ */
+
+#main-content {
+    margin-left: 250px; /* Verschiebt den Inhalt um die Breite der Sidebar */
+    flex-grow: 1;
+    padding: 20px 40px;
+}
+
+header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Card Styling */
+.card {
+    background-color: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* ------------------ Dark Mode Toggle Button ------------------ */
+
+#mode-toggle {
+    background: var(--sidebar-link-hover);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: auto; /* Klebt den Button an den unteren Rand der Sidebar */
+    transition: background-color 0.2s;
+}
+
+#mode-toggle:hover {
+    background: #34495e;
 }

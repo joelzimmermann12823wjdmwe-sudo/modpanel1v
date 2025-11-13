@@ -1,70 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // !! WICHTIG: Ersetzen Sie dies durch die tatsächliche URL Ihres Render Web Services (API) !!
-    const API_URL = '/src/api.php'; // Pfad zum Backend-Skript
+    const modeToggle = document.getElementById('mode-toggle');
+    const body = document.body;
+    
+    // 1. Prüfen, ob der Dark Mode gespeichert ist
+    const savedMode = localStorage.getItem('theme');
 
-    const form = document.getElementById('punishmentForm');
-    const tableBody = document.getElementById('punishmentTable').querySelector('tbody');
-    const messageDiv = document.getElementById('message');
+    const updateToggleText = (isDark) => {
+        modeToggle.innerHTML = isDark 
+            ? '<i class="fas fa-sun"></i> Light Mode'
+            : '<i class="fas fa-moon"></i> Dark Mode';
+    };
 
-    // Funktion zum Laden und Anzeigen der Historie
-    async function loadPunishments() {
-        try {
-            const response = await fetch(`${API_URL}?action=get`);
-            const punishments = await response.json();
-            
-            tableBody.innerHTML = ''; // Vorherige Einträge löschen
-
-            punishments.forEach(p => {
-                const row = tableBody.insertRow();
-                
-                // CSS-Klasse für Farbkodierung
-                let typeClass = p.type.replace(/\s/g, '-'); // Leerzeichen durch Bindestriche ersetzen
-                row.classList.add(`row-${typeClass}`);
-
-                row.insertCell().textContent = new Date(p.date).toLocaleString();
-                row.insertCell().textContent = p.type;
-                row.insertCell().textContent = p.user_id;
-                row.insertCell().textContent = p.reason;
-                row.insertCell().textContent = p.moderator_id;
-            });
-        } catch (error) {
-            console.error('Fehler beim Laden der Strafen:', error);
-            tableBody.innerHTML = '<tr><td colspan="5" class="text-danger text-center">Fehler beim Laden der Daten.</td></tr>';
-        }
+    if (savedMode === 'dark') {
+        body.classList.add('dark-mode');
+        updateToggleText(true);
+    } else {
+        body.classList.remove('dark-mode');
+        updateToggleText(false);
     }
 
-    // Event-Listener für das Formular
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // 2. Event-Listener für den Toggle-Button
+    modeToggle.addEventListener('click', () => {
+        const isDark = !body.classList.contains('dark-mode');
+        body.classList.toggle('dark-mode');
 
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-
-        try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                // Daten im JSON-Format an das Backend senden
-                body: JSON.stringify({ ...data, action: 'save' }) 
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                messageDiv.innerHTML = '<div class="alert alert-success">Strafe erfolgreich gespeichert!</div>';
-                form.reset(); // Formular zurücksetzen
-                loadPunishments(); // Liste aktualisieren
-            } else {
-                messageDiv.innerHTML = `<div class="alert alert-danger">Fehler: ${result.message}</div>`;
-            }
-
-        } catch (error) {
-            messageDiv.innerHTML = `<div class="alert alert-danger">Ein unerwarteter Fehler ist aufgetreten: ${error.message}</div>`;
+        // 3. Modus im localStorage speichern und Button-Text aktualisieren
+        if (isDark) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
         }
+        updateToggleText(isDark);
     });
 
-    // Dashboard beim Laden füllen
-    loadPunishments();
+    // Hier könnten Sie Ihren Code zum Abrufen von api.php einfügen:
+    // fetch('/src/api.php')
+    //    .then(response => response.json())
+    //    .then(data => console.log('API Data:', data))
+    //    .catch(error => console.error('API Error:', error));
 });
