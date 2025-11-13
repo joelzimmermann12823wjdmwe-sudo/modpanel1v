@@ -45,6 +45,7 @@ router.get('/callback', async (req, res) => {
             maxAge: 7 * 24 * 60 * 60 * 1000 
         }); 
         
+        // Leitet zum Dashboard weiter
         res.redirect('/dashboard'); 
 
     } catch (error) {

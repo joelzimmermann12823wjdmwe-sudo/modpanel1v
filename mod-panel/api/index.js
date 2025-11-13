@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const path = require('path'); // Wichtig für die Pfadbehandlung des Frontends
+const path = require('path'); 
 
 const { init: initBot } = require('../bot/client');
 
@@ -19,7 +19,7 @@ app.use(cookieParser());
 // Der Pfad zum gebauten Frontend-Verzeichnis (mod-panel/dashboard/dist)
 const frontendPath = path.join(__dirname, '..', 'dashboard', 'dist');
 
-// Erlaubt Express, alle statischen Dateien (JS, CSS, Bilder) aus dem Frontend-Build-Ordner auszuliefern
+// Express Static Middleware, um JS/CSS/Bilder auszuliefern
 app.use(express.static(frontendPath));
 
 // --- 2. API- und Auth-Routen einbinden ---
@@ -27,12 +27,8 @@ app.use(express.static(frontendPath));
 const moderationRoutes = require('./routes/moderation');
 const authRoutes = require('./routes/auth');
 
-// Prefix für die API-Endpunkte
 app.use('/api/mod', moderationRoutes); 
-// Prefix für den OAuth2-Flow (Login, Callback, User-Check)
 app.use('/auth', authRoutes); 
-
-// --- 3. Status-Check-Route ---
 
 app.get('/api/status', (req, res) => {
     res.json({ 
@@ -42,16 +38,21 @@ app.get('/api/status', (req, res) => {
     });
 });
 
-// --- 4. Frontend-Fallback-Route (Wichtig für SPA Routing) ---
+// --- 3. Frontend-Fallback-Route (Wichtig für SPA Routing) ---
 
-// Jede andere Anfrage, die keine der obigen Routen trifft (z.B. /dashboard/logs oder /dashboard), 
-// wird auf die Haupt-index.html des Dashboards umgeleitet.
+// Leitet alle nicht gefundenen Routen auf die index.html des Dashboards um.
 app.get('*', (req, res) => {
-    // Stellt sicher, dass die index.html aus dem gebauten Frontend-Ordner ausgeliefert wird
-    res.sendFile(path.join(frontendPath, 'index.html'));
+    // Prüft zuerst, ob die index.html existiert, um den ENOENT-Fehler zu vermeiden
+    const indexPath = path.join(frontendPath, 'index.html');
+    
+    if (require('fs').existsSync(indexPath)) {
+        res.sendFile(indexPath);
+    } else {
+        res.status(500).send("<h1>Fehler: Frontend nicht gefunden</h1><p>Bitte stellen Sie sicher, dass der 'npm run build' Befehl im 'dashboard' Ordner erfolgreich ausgeführt wurde.</p>");
+    }
 });
 
-// --- 5. Server-Start-Logik ---
+// --- 4. Server-Start-Logik ---
 
 async function startServer() {
     if (!DISCORD_TOKEN) {
@@ -62,7 +63,6 @@ async function startServer() {
     
     app.listen(API_PORT, () => {
         console.log(`🌐 Express API Server läuft auf http://localhost:${API_PORT}`);
-        console.log(`💡 Dashboard wird von ${frontendPath} ausgeliefert.`);
     });
 }
 
