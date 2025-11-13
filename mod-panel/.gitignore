@@ -1,0 +1,13 @@
+cat <<EOT > mod-panel/.gitignore
+# Node
+node_modules
+npm-debug.log
+
+# Environment
+.env # <-- WICHTIG: Ignoriere die Datei mit den echten Secrets
+.env.example
+
+# Frontend Build
+/dashboard/dist
+/dashboard/node_modules
+EOT
