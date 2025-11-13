@@ -1,0 +1,25 @@
+/* Generelle Schriftart */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* Farben für die Zeilen basierend auf dem Typ */
+.row-Warn {
+    background-color: #fff3cd; /* Gelb (Bootstrap warning) */
+}
+
+.row-Kick {
+    background-color: #cfe2ff; /* Hellblau */
+}
+
+.row-Temp-Ban {
+    background-color: #f8d7da; /* Hellrot (Bootstrap danger) */
+    font-weight: bold;
+}
+
+.row-Perm-Ban {
+    background-color: #dc3545; /* Rot */
+    color: white;
+    font-weight: bold;
+}
