@@ -1,14 +1,13 @@
-/* Grundlegende Variablen für Hell-Modus */
 :root {
-    --primary-color: #4CAF50; /* Grüne Akzentfarbe */
+    --primary-color: #4CAF50; 
     --text-color: #333;
-    --bg-color: #f4f7f6; /* Heller Hintergrund */
+    --bg-color: #f4f7f6; 
     --card-bg-color: #ffffff;
-    --sidebar-bg-color: #2c3e50; /* Dunkle Sidebar */
+    --sidebar-bg-color: #2c3e50; 
     --sidebar-link-hover: #34495e;
 }
 
-/* Variablen für Dark-Modus (überschreiben im .dark-mode Body) */
+/* Variablen für Dark-Modus (wird über JS auf das Body-Tag angewendet) */
 body.dark-mode {
     --text-color: #ecf0f1;
     --bg-color: #1c2833;
@@ -30,7 +29,17 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
-    display: flex; /* Flexbox für Sidebar/Content Layout */
+}
+
+/* List Reset für Navigation */
+#sidebar ul {
+    list-style: none;
+}
+
+/* Container für Sidebar und Main Content */
+#dashboard-container {
+    display: flex;
+    min-height: 100vh;
 }
 
 /* ------------------ Sidebar Styling ------------------ */
@@ -40,8 +49,9 @@ body {
     background-color: var(--sidebar-bg-color);
     color: white;
     padding: 20px;
+    position: sticky; /* Besser als fixed, wenn der Inhalt scrollt */
+    top: 0;
     height: 100vh;
-    position: fixed; /* Fixiert die Sidebar */
     display: flex;
     flex-direction: column;
 }
@@ -52,9 +62,8 @@ body {
     color: var(--primary-color);
 }
 
-#sidebar nav ul {
-    list-style: none;
-    flex-grow: 1;
+#sidebar nav {
+    flex-grow: 1; 
 }
 
 #sidebar nav a {
@@ -80,15 +89,14 @@ body {
 /* ------------------ Main Content ------------------ */
 
 #main-content {
-    margin-left: 250px; /* Verschiebt den Inhalt um die Breite der Sidebar */
     flex-grow: 1;
     padding: 20px 40px;
 }
 
-header {
+.page-header {
     margin-bottom: 30px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--text-color);
     color: var(--text-color);
 }
 
@@ -111,7 +119,7 @@ header {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: auto;
+    margin-top: 20px; /* Platz über dem unteren Rand */
     transition: background-color 0.2s;
     width: 100%;
     text-align: left;

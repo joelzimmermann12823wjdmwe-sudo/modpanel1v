@@ -4,39 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MODPANEL Dashboard</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="light-mode">
-    <div id="sidebar">
-        <div class="logo">
-            <h3>MODPANEL</h3>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
-                <li><a href="#"><i class="fas fa-server"></i> Server-Status</a></li>
-                <li><a href="#"><i class="fas fa-users"></i> Benutzerverwaltung</a></li>
-                <li><a href="#"><i class="fas fa-cog"></i> Einstellungen</a></li>
-            </ul>
-        </nav>
+<body>
+    <div id="dashboard-container">
         
-        <button id="mode-toggle">
-            <i class="fas fa-moon"></i> Dark Mode
-        </button>
-    </div>
-
-    <div id="main-content">
-        <header>
-            <h1>Willkommen zurück!</h1>
-        </header>
-
-        <section id="content-area">
-            <div class="card">
-                <h2>Server-Statistiken</h2>
-                <p>Status: Läuft (200 OK)</p>
+        <aside id="sidebar">
+            <div class="logo">
+                <h3>MODPANEL</h3>
             </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-home"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-server"></i> Server-Status</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Benutzerverwaltung</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Einstellungen</a></li>
+                </ul>
+            </nav>
+            
+            <button id="mode-toggle">
+                <i class="fas fa-moon"></i> Dark Mode
+            </button>
+        </aside>
+
+        <main id="main-content">
+            <header class="page-header">
+                <h1>Willkommen zurück!</h1>
+            </header>
+
+            <section id="stats-section">
+                <div class="card">
+                    <h2>Server-Statistiken</h2>
+                    <p>Status: Läuft (200 OK)</p>
+                </div>
             </section>
+        </main>
     </div>
 
     <script src="assets/js/app.js"></script>
