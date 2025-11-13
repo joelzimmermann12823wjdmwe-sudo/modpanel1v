@@ -1,0 +1,12 @@
+{
+  "name": "php-on-node-workaround",
+  "version": "1.0.0",
+  "description": "Workaround to run PHP on Node.js host.",
+  "main": "start.js",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
