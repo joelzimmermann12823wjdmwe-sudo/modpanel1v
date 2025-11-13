@@ -33,9 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateToggleText(isDark);
     });
 
-    // Hier könnten Sie Ihren Code zum Abrufen von api.php einfügen:
-    // fetch('/src/api.php')
-    //    .then(response => response.json())
-    //    .then(data => console.log('API Data:', data))
-    //    .catch(error => console.error('API Error:', error));
+    // Hier könnten Sie Ihren Code zum Abrufen von api.php einfügen
+    // (Achtung: api.php muss unter /src/api.php oder /api.php erreichbar sein)
 });

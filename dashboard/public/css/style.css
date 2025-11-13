@@ -41,7 +41,7 @@ body {
     color: white;
     padding: 20px;
     height: 100vh;
-    position: fixed;
+    position: fixed; /* Fixiert die Sidebar */
     display: flex;
     flex-direction: column;
 }
@@ -54,7 +54,7 @@ body {
 
 #sidebar nav ul {
     list-style: none;
-    flex-grow: 1; /* Nimmt den verfügbaren Platz ein */
+    flex-grow: 1;
 }
 
 #sidebar nav a {
@@ -89,6 +89,7 @@ header {
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
+    color: var(--text-color);
 }
 
 /* Card Styling */
@@ -98,6 +99,7 @@ header {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    color: var(--text-color);
 }
 
 /* ------------------ Dark Mode Toggle Button ------------------ */
@@ -109,8 +111,10 @@ header {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: auto; /* Klebt den Button an den unteren Rand der Sidebar */
+    margin-top: auto;
     transition: background-color 0.2s;
+    width: 100%;
+    text-align: left;
 }
 
 #mode-toggle:hover {
